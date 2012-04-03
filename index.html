@@ -1,0 +1,414 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Banda Garaxxjata by norbertbonnici</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Banda Garaxxjata</h1>
+        <p>A simple music editor</p>
+        <p class="view"><a href="https://github.com/norbertbonnici/bandaGaraxxjata">View the Project on GitHub <small>norbertbonnici/bandaGaraxxjata</small></a></p>
+        <ul>
+          <li><a href="https://github.com/norbertbonnici/bandaGaraxxjata/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/norbertbonnici/bandaGaraxxjata/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/norbertbonnici/bandaGaraxxjata">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>￼University of Malta Course Unit: <em>CIS2051</em></p>
+
+<p>by Norbert Bonnici <em>&amp;</em> <a href="http://malcolmdebono.com">Malcolm Debono</a></p>
+
+<p>￼￼Academic Year: 2011/2012</p>
+
+<h1>Contents</h1>
+
+<ol>
+<li><p>Specification of Work</p></li>
+<li><p>Design</p></li>
+<li><p>Implementation</p></li>
+<li><p>Evaluation</p></li>
+<li><p>Screenshots</p></li>
+</ol><h1>Specification of Work</h1>
+
+<h2>Classes</h2>
+
+<p><strong>Program</strong> Displays the MusicKeyboard form</p>
+
+<p><strong>MusicKey</strong> Creates a new music key (object) with the specified note id and at a specified location (x,y)</p>
+
+<p><strong>BlackMusicKey</strong> A sub-class of MusicKey used to create a black music key MusicKeyboard Form which shows the music keyboard by generating music keys and contains many methods and events related to a music keyboard</p>
+
+<p><strong>Noti</strong> Takes care of drawing notes through a PaintEventArgs object and performs note manipulation</p>
+
+<p><strong>Stave</strong> Form which shows the stave by generating an array of 36 notes and uses the Noti class to manipulate them</p>
+
+<h2>Events</h2>
+
+<p><strong>MusicKeyboard_Load</strong> Generates the music keys at runtime</p>
+
+<p><strong>dummyKey_MouseDown</strong> Plays the sound of the relevant note according to the key pressed, shows which key was pressed (both the id of the key in the textbox as well as highlights the physical key by changing the image of the key), stores the ID of the key pressed if recording is checked, and passes the ID of the key pressed to the stave</p>
+
+<p><strong>dummyKey_MouseUp</strong> Resets the image of the key back to the default state ￼</p>
+
+<p><strong>playback_Tick</strong> Handles playback by playing the recorded notes one by one until all of them are played, and displays the playback status graphically using a progress bar</p>
+
+<p><strong>bPlay_Click</strong> Plays back the recorded song at the tempo specified by the user bStop Click Stops playback of the recorded song</p>
+
+<p><strong>bDelete_Click</strong> Clears the recording list to start a new song</p>
+
+<p><strong>bSpace_Click</strong> Inserts a gap into the recording</p>
+
+<p><strong>cbRecord_CheckedChanged</strong> Updates the record button to reflect recording state according to whether it is checked or not</p>
+
+<p><strong>cbLoop_CheckedChanged</strong> Updates the loop button to reflect whether loop mode is turned on or off according to whether it is checked or not</p>
+
+<p><strong>cbStave_CheckedChanged</strong> Shows or hides the stave window</p>
+
+<p><strong>Stave_Paint</strong> Draws the stave lines, and an array of 36 notes and accidentals</p>
+
+<p><strong>Stave_MouseDown</strong> Calls an appropiate function (depends on which mouse but- ton was used) to modify a note</p>
+
+<p><strong>Stave_FormClosing</strong> Hides the stave when the close button is pressed btUpload Click Sends data from the stave to the MusicKeyboard object btClear Click Clears all notes from the stave</p>
+
+<p>￼￼￼￼￼￼￼￼￼￼￼￼￼</p>
+
+<h1>Design</h1>
+
+<h2>Class Hierarchy</h2>
+
+<p>A high level class hierarchy of all the classes within the application:</p>
+
+<h2>Design Issues</h2>
+
+<ol>
+<li>Since the keys are generated at runtime, the user can see the keys being drawn sequentially.</li>
+</ol><p>￼</p>
+
+<h1>Implementation</h1>
+
+<h2>Listing of Methods</h2>
+
+<h3>MusicKey</h3>
+
+<p><em>MusicKey(int iNote, int x, int y)</em></p>
+
+<h3>BlackMusicKey</h3>
+
+<p><em>BlackMusicKey(int iNote, int x, int y)</em></p>
+
+<h3>MusicKeyboard</h3>
+
+<p><em>MusicKeyboard()</em></p>
+
+<p><em>void MusicKeyboard Load(object sender, EventArgs e)</em></p>
+
+<p><em>void dummyKey MouseDown(object sender, MouseEventArgs e)</em></p>
+
+<p><em>void dummyKey MouseUp(object sender, MouseEventArgs e)</em></p>
+
+<p><em>void enablePlayback()</em></p>
+
+<p><em>void disablePlayback()</em></p>
+
+<p><em>void playKey(int id)</em></p>
+
+<p><em>void bPlay Click(object sender, EventArgs e)</em></p>
+
+<p><em>void playback Tick(object sender, EventArgs e)</em></p>
+
+<p><em>void bDelete Click(object sender, EventArgs e)</em></p>
+
+<p><em>void bStop Click(object sender, EventArgs e)</em></p>
+
+<p><em>void bSpace Click (object sender, EventArgs e)</em></p>
+
+<p><em>void cbRecord CheckedChanged(object sender, EventArgs e)</em></p>
+
+<p><em>void highlightKey(int prev, int current)</em></p>
+
+<p><em>void cbLoop CheckedChanged(object sender, EventArgs e)</em></p>
+
+<p><em>void cbStave CheckedChanged(object sender, EventArgs e)</em></p>
+
+<p><em>override bool ProcessCmdKey(ref Message msg, Keys keyData)</em>
+￼￼￼￼￼￼￼￼￼￼￼</p>
+
+<h3>￼Noti</h3>
+
+<p><em>public void drawNote(PaintEventArgs hagu, int id, int x, int y, string acc, string mod)</em></p>
+
+<p><em>public void drawNote(PaintEventArgs hagu)</em></p>
+
+<p><em>private void pingiNota(PaintEventArgs picasso, int id, int x, int y, string acc, string mod)</em></p>
+
+<p><em>private void pingiCleff(PaintEventArgs picasso)</em></p>
+
+<p><em>private int noteToInt(int nota)</em></p>
+
+<p><em>public int yToPitch(int y, string acc)</em></p>
+
+<p><em>public int msToDuration(int ms)</em></p>
+
+<p><em>public int pitchToY(int pitch)</em></p>
+
+<p><em>private int locationToX(int x)</em></p>
+
+<p><em>public void changeNote(int x, int y)</em></p>
+
+<p><em>public void changeNote(int i, int pitch, int duration, string acc)</em></p>
+
+<p><em>public void changeNote(int x)</em></p>
+
+<p><em>public void changeNote(int x, bool acc)</em></p>
+
+<p><em>private void zidJewMexxiNota(int x, int y)</em></p>
+
+<p><em>private void zidNota(int identita, int pitch, int ms, string acc)</em></p>
+
+<p><em>private void ibdelTulTaNota(int x)</em></p>
+
+<p><em>private void ibdelAccTaNota(int x, bool acc)</em></p>
+
+<p><em>public Stave(MusicKeyboard mk)</em></p>
+
+<p><em>private void Stave Paint(object sender, PaintEventArgs picasso)</em></p>
+
+<p><em>private void Stave MouseDown(object sender, MouseEventArgs gur- dien)</em></p>
+
+<p><em>private void btUpload Click(object sender, EventArgs e)</em></p>
+
+<p><em>private void btClear Click(object sender, EventArgs e)</em></p>
+
+<p><em>public void addNoteFromKeyboard(int pitch, long ms)</em></p>
+
+<p><em>private void Stave FormClosing(object sender, FormClosingEventArgs e)</em></p>
+
+<h2>Core Methods in detail</h2>
+
+<h3>void MusicKeyboard_Load(object sender, EventArgs e)</h3>
+
+<ol>
+<li>Uses two for-loops to construct the piano keys, and at each stage increments both the ID of the note and the X position</li>
+<li>Two for-loops are used (instead of one) as the white and black keys are created separately. This makes it easier to assign their location as well as their ID</li>
+<li>Adds a MouseDown and MouseUp event handler to each key</li>
+</ol><h3>void dummyKey_MouseDown(object sender, MouseEventArgs e)</h3>
+
+<ol>
+<li>Checks which key was pressed by comparing all MusicKeys to the sender.</li>
+<li>Outputs the ID of the key pressed to the textbox</li>
+<li>Changes the image of the key pressed to highlight it. The <strong>GetType()</strong> method is used to determine if the key is black or white.</li>
+<li>If the recording checkbox is checked, the note pressed is added to the recording list and a stopwatch (used to measure the duration of the key) is started.</li>
+</ol><h3>void dummyKey_MouseUp(object sender, MouseEventArgs e)</h3>
+
+<ol>
+<li>Checks which key was pressed by comparing all MusicKeys to the sender.</li>
+<li>Used to change the image of the key pressed to the default state as soon as it is released.</li>
+<li>The <strong>GetType()</strong> method is used to determine if the key is black or white in a simple for-loop by converting the type to string and checking if it contains the text <em>BlackMusicKey</em>.</li>
+<li>Stops the stopwatch, and passes both the key ID and the duration to the stave.</li>
+</ol><h3>void playKey(int id)</h3>
+
+<ol>
+<li>The sound file of the player is changed according to the integer passed.</li>
+<li>The sound file is played.</li>
+</ol><h3>void bPlay_Click(object sender, EventArgs e)</h3>
+
+<ol>
+<li>Converts the BPM entered by the user to milliseconds.</li>
+<li>Sets the interval of the playback timer to the converted milliseconds value, so that the BPM determines the interval between each key.</li>
+<li>Starts the playback timer.</li>
+<li>Updates UI to reflect playback, including changing the image of the play button and enabling the stop button.</li>
+</ol><h3>void playback_Tick(object sender, EventArgs e)</h3>
+
+<ol>
+<li>Integer playCount is used as a counter to keep track of how many notes where played</li>
+<li>The integer is compared to the total number of notes stored in the recording list <em>recording.Count</em>
+</li>
+<li>If the integer is smaller, the key in the recording list at the playCount position is played if it is not equal to -1 (which indicates that there is a space), and playCount is incremented by 1. The progress bar is also updated by dividing the playCount by the total number of notes stored in the recording list <em>recording.Count</em>, and multiplying the result by 100 to get a percentage. The current key is also highlighted by calling the highlightKey method, and unless it is the first note played, the previous note is returned to the normal state.</li>
+<li>Otherwise, if the loop checkbox is checked, playback is restarted by resetting the playCount counter and playing the first note (this is done here so as to avoid having a gap when the song ends which results from the timer having to wait for another tick). If the loop checkbox is unchecked, the playback timer is stopped and the user is informed that the song ended.</li>
+</ol><h3>void highlightKey(int prev, int current)</h3>
+
+<ol>
+<li>A temporary <strong>MusicKey()</strong> called <em>mk</em> is created</li>
+<li>A value of <em>-1</em> in the prev variable indicates that there wasn't a previous key, i.e. the key played was the first one. Therefore if the value of this integer is not equal to <em>-1</em>, <em>mk</em> is set to the previous key, and it's image is changed back to normal state, depending on whether it is a black or white key (using the <strong>GetType()</strong> method to determine the key type)</li>
+<li>
+<em>mk</em> is then set to the current key, and it's image is changed to the highlighted (or down) state, again depending on whether it is a black or white key</li>
+</ol><h3>void pingiNota(PaintEventArgs picasso, int id, int x, int y, string acc, string mod)</h3>
+
+<ol>
+<li>Two bitmap objects <em>mappa</em> and <em>sharp</em> are created to hold images for the note and accidentals.</li>
+<li>Since the accidental is not using an alpha in the image, a function <strong>MakeTransperent()</strong> was used to create a transparency from the background.</li>
+<li>The PaintEventArgs object is used to draw the bitmap objects with the coordinates which were passed as parameters, and with the bitmap object's own dimensions. </li>
+</ol><h3>int noteToInt(int nota)</h3>
+
+<ol>
+<li>Converts a y coordinate to a note position on the stave (y-axis)</li>
+<li>Creates a temporary variable, <em>position</em> and sets it to <em>-1</em>
+</li>
+<li>Starts a for-loop from grobal variables <em>min</em> till <em>(interval * 7) + min</em> with increments of <em>interval</em>
+</li>
+<li>If <em>nota</em> is one more or one less than the current position, the variable <em>position</em> is set to the current position minus 28, which means that the note is on a line of the stave</li>
+<li>If the current position is not equal to ((<em>interval</em> * 7) + <em>min</em>) and if <em>nota</em> is between (2 + current position) and (current position + global variable <em>interval</em> + 2), the variable <em>position</em> is set to the current position minus 20, which means that the note is on the space between lines on the stave</li>
+<li>The variable <em>position</em> is returned</li>
+</ol><h3>int yToPitch(int y, string acc)</h3>
+
+<ol>
+<li>Converts a y coordinate to a wave ID (<em>pitch</em>)</li>
+<li>Creates a temporary variable <em>pitch</em> and sets it to zero, and an array of integers and fills it with possible wave IDs of natural notes</li>
+<li>The same for-loop from the method above is used but encapsulated in an if statement to check the validity of the y coordinate</li>
+<li>If the position is on a line on the stave the variable <em>pitch</em> is set to the integer in the array with position (2 * ((current position - <em>min</em>) / 15))</li>
+<li>Else if the position is between a line <em>pitch</em> is set to the integer in the array with position ((2 * ((current position - min) / 15)) + 1)</li>
+<li>If the string <em>acc</em> is "#" and if <em>pitch</em> is not <em>25</em>, <em>pitch</em> is increased by <em>1</em>
+</li>
+<li>The variable <em>pitch</em> is returned.</li>
+</ol><h3>int pitchToY(int pitch)</h3>
+
+<ol>
+<li>Converts wave IDs to y coordinates to be used on the stave</li>
+<li>Creates a temporary variable <em>index</em> and sets it to <em>-1</em>, and an array of integers and fills it with possible wave IDs of natural notes</li>
+<li>Loops through the the array and checks if <em>pitch</em> is equal to one of the integers in the array and if it is true <em>index</em> is set to that integer</li>
+<li>If <em>index</em> is still <em>-1</em> the array is looped through and check for an integer between two positions and returns the current position + 1 which would be the index of an accidental</li>
+<li>If <em>pitch</em> is valid, a for-loop from global variables <em>min</em> till <em>(interval * 7) + min</em> with increments of <em>interval</em> is started.</li>
+<li>If <em>index</em> is equal to (2 * ((current position - <em>min</em>) / 15)), the current position - 28 is returned (on a line)</li>
+<li>Else if <em>index</em> is equal to the previous limit + 1, the current position - 20 is returned (in a space)</li>
+<li>Else 0 is returned (just in case)</li>
+</ol><h3>int msToDuration(int ms)</h3>
+
+<ol>
+<li>Converts milliseconds to an integer duration notation currently used to show different note durations</li>
+<li>If <em>ms</em> is <em>0</em>, <em>0</em> is returned, else if <em>ms</em> is between the classical note durations, an integer from <em>1</em> to <em>5</em> is returned, depending on the duration</li>
+</ol><h3>int locationToX(int x)</h3>
+
+<ol>
+<li>Converts x coordinates to possible locations on the x axis on the stave</li>
+<li>Creates a temporary variable <em>position</em> and sets it to <em>-1</em>
+</li>
+<li>Starts a for-loop from 110 (initial position) to 820 (final position) with increments of 20 (spacing between notes)</li>
+<li>If <em>x</em> is between the current position ±9, <em>position</em> is set to the current position minus 110 and divided by <em>20</em>
+</li>
+<li>
+<em>position</em> is returned</li>
+</ol><h3>void ibdelTulTaNota(int x)</h3>
+
+<ol>
+<li>Changes the duration of a note.</li>
+<li>Creates a temporary variable <em>identita</em> from the method <strong>locationToX(<em>x</em>)</strong>
+</li>
+<li>If <em>identita</em> is valid and if the duration of the note in position <em>identita</em> is <em>5</em> the duration is set to <em>0</em> (rest) else the duration is incremented.</li>
+</ol><h3>void ibdelAccTaNota(int x, bool acc)</h3>
+
+<ol>
+<li>Changes the accidental of a note.</li>
+<li>Creates a temporary variable <em>identita</em> from the method <strong>locationToX(<em>x</em>})</strong>
+</li>
+<li>If <em>identita</em> is valid the accidental of the note in position <em>identita</em> is "#" the accidental is set to "blank" (natural) and the pitch is reduced by 1 else the accidental is set to "#" (sharp) and the pitch is increased by 1 </li>
+</ol><h3>void zidJewMexxiNota(int x, int y)</h3>
+
+<ol>
+<li>Creates or moves a note to a new y coordinate</li>
+<li>Creates a temporary variable <em>identita</em> from the method <strong>locationToX(<em>x</em>)</strong>
+</li>
+<li>Creates a temporary variable _<em>y</em> from the method <strong>noteToInt(<em>y</em>)</strong>
+</li>
+<li>If _<em>y</em> and <em>identita</em> are valid then the y coordinate of the note at position <em>identita</em> is set to _<em>y</em> and the pitch is set to the value the method <strong>yToPitch()</strong> returns</li>
+<li>If there is no note in that position it is set to 3 (a crotchet) as it is the most commonly used duration</li>
+<li>If _<em>y</em> is smaller or equal to <em>45</em> the image is set to the inverted one using the mod parameter in the note and increasing the y coordinate value of the note by 21, else the mod parameter is set to null.</li>
+</ol><h3>void zidNota(int identita, int pitch, int ms, string acc)</h3>
+
+<ol>
+<li>Creates a note with data from <strong>MusicKeyboard()</strong>
+</li>
+<li>Creates a temporary variable _<em>y</em> from the method <strong>pitchToY(<em>y</em>)</strong>
+</li>
+<li>If <em>pitch</em> and <em>identita</em> are valid then the y coordinate of the note at position <em>identita</em> is set to _<em>y</em> and pitch is set to <em>pitch</em>
+</li>
+<li>The duration of the note is set using the method <strong>msToDuration(ms)</strong>
+</li>
+<li>If _<em>y</em> is smaller or equal to <em>45</em> the image is set to the inverted one using the mod parameter in the note and increasing the y coordinate value of the note by 21, else the mod parameter is set to null.</li>
+</ol><h1>Evaluation</h1>
+
+<h2>Features of Current Program</h2>
+
+<h3>General</h3>
+
+<p>– Play notes by pressing the keys on the music keyboard</p>
+
+<p>– The ID of the key pressed is displayed</p>
+
+<p>– The visibility of the stave window can be toggled to take up less screen space</p>
+
+<p>– Keyboard shortcuts </p>
+
+<h3>Recording</h3>
+
+<p>– Keys are only recorded when the ’Record keys’ checkbox is checked</p>
+
+<p>– This means that the user can easily record a song in several parts (for example recording part of the song, hearing it, and continue recording, or even unchecking the recording box to compare different notes to record next)</p>
+
+<p>– A gap can also be inserted at the current position with the press of a button, to separate notes from each other. Multiple gaps can also be inserted to increase the duration between the notes.</p>
+
+<p>– Due to the nature of the program, recordings of the stave and the keyboard are handled separately. We opted for such an implementation since this gives the user the ability to add notes from the stave multiple times. Clearing the stave doesn’t clear the recording.</p>
+
+<h3>Playback</h3>
+
+<p>– Recording is played from beginning when user clicks the Play button</p>
+
+<p>￼– Playback can be stopped at any time by pressing the Stop button</p>
+
+<p>– User can set a custom tempo in BPM (default is set to 120) to make the song play faster or slower</p>
+
+<p>– The song can also be played in loop mode, so that it is played continu- ously until the user stops it</p>
+
+<p>– The user is also given visual indication of the playback via the progress bar at the bottom of the application</p>
+
+<h3>Stave</h3>
+
+<p>– The user can add or move a note by clicking with the left mouse button in a space on the stave</p>
+
+<p>– The ability to change the accidental of a note by clicking with the middle mouse button on the stave</p>
+
+<p>– Changing the duration of a note by clicking with the right mouse button on the stave</p>
+
+<p>– Exporting notes to the music keyboard to be played</p>
+
+<h3>Installation</h3>
+
+<p>– InstallShield was used to package the application to a single executable to be installed on any Windows machine</p>
+
+<p>– Icons were made and implemented in the application</p>
+
+<h2>Suggestions and Improvements</h2>
+
+<ol>
+<li><p>Optimize performance (better handling of images and sound files)</p></li>
+<li><p>Better handling of sound files (the built-in library is limited)</p></li>
+<li><p>One feature that we could have added if we had more time is to save and load the recordings</p></li>
+<li><p>Another feature which we could have added is to export the stave with notes as an image</p></li>
+<li><p>Ledger lines could have been added for when notes are out of the stave lines</p></li>
+</ol><h1>Screenshots</h1>
+
+<p>￼Figure 5.1: The program upon starting</p>
+
+<p>￼￼Figure 5.2: Keyboard to stave input</p>
+
+<p>￼￼Figure 5.3: A sample score by Beethoven (Ode to joy)</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/norbertbonnici">norbertbonnici</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
